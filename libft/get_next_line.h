@@ -3,28 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 18:19:13 by jcheel-n          #+#    #+#             */
-/*   Updated: 2022/04/13 18:02:13 by jcheel-n         ###   ########.fr       */
+/*   Created: 2024/12/10 10:47:21 by wbaali            #+#    #+#             */
+/*   Updated: 2025/04/29 13:20:30 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
-# include <unistd.h>
 # include <stdlib.h>
-# include <fcntl.h>
-# include "libft.h"
-# define BUFFER_SIZE 1048
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 char	*get_next_line(int fd);
+char	*ft_strjoins(char const *s1, char const *s2);
+char	*ft_strchrs(const char *str, int search);
 
-// void	*ft_memcpy(void *dst, const void *src, size_t n);
-// char	*ft_strchr(const char *s, int c);
-// size_t	ft_strlen(char const *str);
-//char	*ft_substr(char const *s, unsigned int start, size_t len, int freeme);
-//char	*ft_strjoin(char *s1, char *s2);
+void	ft_bzeros(void *s, unsigned int n);
+void	*ft_callocs(unsigned int count, unsigned int size);
+
+size_t	ft_strlens(const char *str);
 
 #endif

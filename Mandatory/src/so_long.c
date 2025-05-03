@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:55:50 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/24 08:35:13 by wassim           ###   ########.fr       */
+/*   Updated: 2025/04/29 14:32:17 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ int	main(int ac, char **av)
 		map_initializer(&map, av);
 		map_checker(&map);
 		map.mlx = mlx_init();
-		map.wnd = mlx_new_window(map.mlx, map.x
-				* IMG_PXL, map.y * IMG_PXL, WND_NAME);
+		if (!map.mlx)
+			exit(EXIT_FAILURE);
+		map.wnd = mlx_new_window(map.mlx, map.x * IMG_PXL, map.y * IMG_PXL,
+				WND_NAME);
 		file_to_image(&map);
 		map_printer(&map);
 		mlx_hook(map.wnd, 17, 0, ft_close, &map);

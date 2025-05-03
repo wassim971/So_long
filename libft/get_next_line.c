@@ -3,93 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 13:37:13 by jcheel-n          #+#    #+#             */
-/*   Updated: 2022/07/21 16:14:49 by jcheel-n         ###   ########.fr       */
+/*   Created: 2024/12/10 11:56:21 by wbaali            #+#    #+#             */
+/*   Updated: 2025/04/29 13:21:29 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
-static char	*returnstring(char	*recovery)
+static char	*ft_free(char *buffer, char *buf)
+{
+	char	*temp;
+
+	temp = ft_strjoins(buffer, buf);
+	free(buffer);
+	return (temp);
+}
+
+static char	*ft_next(char *buffer)
+{
+	int		i;
+	int		j;
+	char	*line;
+
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (!buffer[i])
+	{
+		free(buffer);
+		return (NULL);
+	}
+	line = ft_callocs((ft_strlens(buffer) - i + 1), sizeof(*buffer));
+	if (!line)
+		return (NULL);
+	j = 0;
+	while (buffer[i])
+		line[j++] = buffer[++i];
+	buffer[j] = '\0';
+	free(buffer);
+	return (line);
+}
+
+static char	*ft_line(char *buffer)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	if (recovery)
-	{
-		while (recovery && recovery[i] != '\n')
-			i++;
-		line = ft_substrfree(recovery, 0, i + 1, 0);
-		return (line);
-	}
-	return (NULL);
-}
-
-static char	*staticret(char	*recovery)
-{
-	size_t	i;
-
+	if (!buffer[i])
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	line = ft_callocs(i + 2, sizeof(char));
+	if (!line)
+		return (NULL);
 	i = 0;
-	if (ft_strchr(recovery, '\n'))
-		while (recovery && recovery[i] != '\n')
-			i++;
-	if (!recovery[i + 1])
+	while (buffer[i] && buffer[i] != '\n')
 	{
-		free(recovery);
-		return (NULL);
+		line[i] = buffer[i];
+		i++;
 	}
-	recovery = ft_substrfree(recovery, i + 1, ft_strlen(recovery) - i, 1);
-	return (recovery);
+	if (buffer[i] && buffer[i] == '\n')
+		line[i++] = '\n';
+	return (line);
 }
 
-static char	*reader(int fd, char *recovery)
+static char	*read_file(int fd, char *res)
 {
-	int		ret;
-	char	*buf;
+	char	*buffer;
+	int		byte_read;
 
-	ret = 1;
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
+	if (!res)
+		res = ft_callocs(1, 1);
+	buffer = ft_callocs(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
 		return (NULL);
-	buf[0] = '\0';
-	while (ret > 0 && !ft_strchr(buf, '\n'))
+	byte_read = 1;
+	while (byte_read > 0)
 	{
-		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret > 0)
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read == -1)
 		{
-			buf[ret] = '\0';
-			recovery = ft_strjoinfree(recovery, buf);
+			free(buffer);
+			free(res);
+			return (NULL);
 		}
+		buffer[byte_read] = 0;
+		res = ft_free(res, buffer);
+		if (ft_strchrs(buffer, '\n'))
+			break ;
 	}
-	free(buf);
-	if (ret < 0)
-	{	
-		free(recovery);
-		return (NULL);
-	}
-	return (recovery);
+	free(buffer);
+	return (res);
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*recovery = NULL;
-	char			*line;
+	static char	*buffer[1024];
+	char		*line;
 
-	if (fd < 0 || fd > 255 || !BUFFER_SIZE)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!recovery || !ft_strchr(recovery, '\n'))
-		recovery = reader(fd, recovery);
-	if (recovery == NULL)
+	buffer[fd] = read_file(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	if (ft_strchr(recovery, '\n'))
-	{
-		line = returnstring(recovery);
-		recovery = staticret(recovery);
-		return (line);
-	}
-	line = recovery;
-	recovery = NULL;
+	line = ft_line(buffer[fd]);
+	buffer[fd] = ft_next(buffer[fd]);
 	return (line);
 }

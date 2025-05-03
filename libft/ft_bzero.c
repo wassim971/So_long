@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 19:08:59 by jcheel-n          #+#    #+#             */
-/*   Updated: 2022/01/25 19:20:40 by jcheel-n         ###   ########.fr       */
+/*   Created: 2024/11/12 14:36:02 by wbaali            #+#    #+#             */
+/*   Updated: 2024/11/12 14:52:54 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
@@ -18,8 +19,7 @@ void	ft_bzero(void *s, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		((char *)s)[i] = 0;
+		*(unsigned char *)(s + i) = 0;
 		i++;
 	}
-	return ;
 }

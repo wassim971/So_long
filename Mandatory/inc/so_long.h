@@ -3,57 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:54:11 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/21 03:47:14 by wassim           ###   ########.fr       */
+/*   Updated: 2025/04/29 13:16:33 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../../libft/libft.h"
 # include "../../libft/get_next_line.h"
+# include "../../libft/libft.h"
 # include "../../mlx/mlx.h"
-# include <unistd.h>
-# include <fcntl.h>
 # include <errno.h>
-# include <stdlib.h>
+# include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-# define UP      122
-# define DOWN    115
-# define LEFT    113
-# define RIGHT   100
-# define ESC     65307
+# define UP 119
+# define DOWN 115
+# define LEFT 97
+# define RIGHT 100
+# define ESC 65307
 # define IMG_PXL 50
 # define WND_NAME "so_long"
 
 typedef struct s_player
 {
-	int	y;
-	int	x;
+	int			y;
+	int			x;
 
-}t_player;
+}				t_player;
 
 typedef struct s_img
 {
-	void	*empty;
-	void	*collectible;
-	void	*wall;
-	void	*exit;
-	void	*player_left1;
-	void	*player_right1;
-	void	*player_up1;
-	void	*player_down1;
-	void	*player_left2;
-	void	*player_right2;
-	void	*player_up2;
-	void	*player_down2;
-	void	*enemy;
-}t_img;
+	void		*empty;
+	void		*collectible;
+	void		*wall;
+	void		*exit;
+	void		*player_left1;
+	void		*player_right1;
+	void		*player_up1;
+	void		*player_down1;
+	void		*player_left2;
+	void		*player_right2;
+	void		*player_up2;
+	void		*player_down2;
+	void		*enemy;
+}				t_img;
 
 typedef struct s_map
 {
@@ -77,41 +77,41 @@ typedef struct s_map
 	t_img		img;
 	t_player	player;
 
-}t_map;
+}				t_map;
 
-void	map_checker(t_map *map);
-void	map_array(t_map *mapper);
-void	file_to_image(t_map *mapper);
-void	map_printer(t_map *mapper);
-int		key_hook(int keycode, t_map *map);
+void			map_checker(t_map *map);
+void			map_array(t_map *mapper);
+void			file_to_image(t_map *mapper);
+void			map_printer(t_map *mapper);
+int				key_hook(int keycode, t_map *map);
 
-void	error_array(t_map *map);
-void	error_filename(void);
-void	error_wall(t_map *map);
-void	error_openfile(void);
-void	error_size(t_map *map);
+void			error_array(t_map *map);
+void			error_filename(void);
+void			error_wall(t_map *map);
+void			error_openfile(void);
+void			error_size(t_map *map);
 
-void	error_map_elements(t_map *map);
-void	error_empty_line(t_map *map);
-void	error_struct(void);
+void			error_map_elements(t_map *map);
+void			error_empty_line(t_map *map);
+void			error_struct(void);
 
-int		ft_free(char **ret, int i);
-void	ft_exit_free(t_map *map);
-int		ft_free_array(char **ret, int i);
+int				ft_free(char **ret, int i);
+void			ft_exit_free(t_map *map);
+int				ft_free_array(char **ret, int i);
 
-void	move_up(t_map *map);
-void	move_left(t_map *map);
-void	move_down(t_map *map);
-void	move_right(t_map *map);
+void			move_up(t_map *map);
+void			move_left(t_map *map);
+void			move_down(t_map *map);
+void			move_right(t_map *map);
 
-void	file_to_image_player(t_map *map);
+void			file_to_image_player(t_map *map);
 
-void	ft_win(t_map *map);
-int		ft_close(t_map *map);
+void			ft_win(t_map *map);
+int				ft_close(t_map *map);
 
-void	print_movements(t_map *map);
-void	map_initializer(t_map *map, char **av);
+void			print_movements(t_map *map);
+void			map_initializer(t_map *map, char **av);
 
-void	check_valid_path(t_map *map);
-void	scan_player(t_map *map);
+void			check_valid_path(t_map *map);
+void			scan_player(t_map *map);
 #endif

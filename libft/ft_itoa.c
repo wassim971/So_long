@@ -3,56 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/10 17:50:16 by jcheel-n          #+#    #+#             */
-/*   Updated: 2022/02/17 20:33:52 by jcheel-n         ###   ########.fr       */
+/*   Created: 2024/11/15 15:18:47 by wbaali            #+#    #+#             */
+/*   Updated: 2024/11/15 16:44:04 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-size_t	ft_intlenght(int c)
+static size_t	count_size(long nb)
 {
-	size_t	ret;
+	size_t	size;
 
-	ret = 0;
-	if (c == 0)
-		return (1);
-	if (c < 0)
-		ret++;
-	while (c)
+	size = 0;
+	if (nb < 0)
 	{
-		c = c / 10;
-			ret++;
+		nb = nb * (-1);
+		size = 1;
 	}
-	return (ret);
+	if (nb == 0)
+		size = 1;
+	else
+	{
+		while (nb)
+		{
+			nb = nb / 10;
+			size++;
+		}
+	}
+	return (size);
 }
 
 char	*ft_itoa(int n)
 {
+	size_t	size;
+	long	nb;
 	char	*str;
-	size_t	lenght;
-	size_t	i;
+	int		is_negative;
 
-	lenght = ft_intlenght(n);
-	str = malloc(sizeof(char) * (lenght + 1));
-	if (!str || n > INT_MAX || n < INT_MIN)
+	size = count_size((long)n);
+	str = (char *)malloc(sizeof(char) * (size + 1));
+	if (str == NULL)
 		return (NULL);
-	str[lenght] = '\0';
-	if (n < 0)
+	nb = (long)n;
+	is_negative = 0;
+	if (nb < 0)
 	{
+		nb = nb * (-1);
 		str[0] = '-';
-		i = 1;
+		is_negative = 1;
 	}
-	else
-		i = 0;
-	while (lenght-- > i)
+	str[size] = '\0';
+	while (size > (size_t)is_negative)
 	{
-		if (n < 0)
-			str[lenght] = 48 + (n % 10) * (-1);
-		else
-			str[lenght] = (n % 10) + 48;
-		n = n / 10;
+		str[size - 1] = nb % 10 + '0';
+		nb = nb / 10;
+		size--;
 	}
 	return (str);
 }

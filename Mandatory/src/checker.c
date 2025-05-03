@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 15:55:37 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/24 08:34:16 by wassim           ###   ########.fr       */
+/*   Updated: 2025/04/28 13:38:00 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	checker_params(t_map *map)
 	y = 0;
 	while (y < map->y)
 	{
+		x = 0;
 		while (x < map->x)
 		{
 			if (map->array[y][x] == 'C')
@@ -51,10 +52,9 @@ static void	checker_params(t_map *map)
 				error_map_elements(map);
 			x++;
 		}
-		x = 0;
 		y++;
 	}
-	if (map->c < 1 || map->e < 1 || map->p != 1)
+	if (map->c < 1 || map->e != 1 || map->p != 1)
 		error_map_elements(map);
 }
 
@@ -71,8 +71,7 @@ static void	checker_wall(t_map *map)
 	y = 1;
 	while (y < map->y)
 	{
-		if (map->array[y][0] != '1' ||
-				map->array[y][map->x - 1] != '1')
+		if (map->array[y][0] != '1' || map->array[y][map->x - 1] != '1')
 			error_wall(map);
 		y++;
 	}

@@ -3,32 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcheel-n <jcheel-n@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 18:02:26 by jcheel-n          #+#    #+#             */
-/*   Updated: 2022/04/14 16:39:35 by jcheel-n         ###   ########.fr       */
+/*   Created: 2024/11/14 12:55:32 by wbaali            #+#    #+#             */
+/*   Updated: 2024/11/18 12:11:53 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
+
+void	cpy(char *new, char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		new[i] = s[start + i];
+		i++;
+	}
+	new[i] = '\0';
+}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	s_len;
-	size_t	size;
-	char	*str;
+	char	*new;
+	size_t	str_len;
 
 	if (!s)
 		return (NULL);
-	s_len = ft_strlen(s);
-	if (start > s_len)
-		return (ft_strdup(""));
-	if (start + len > s_len)
-		len = s_len - start;
-	size = len + 1;
-	str = (char *) malloc(size * sizeof(char));
-	if (!str)
+	str_len = ft_strlen(s);
+	if (start >= str_len)
+	{
+		new = malloc(1);
+		if (!new)
+			return (NULL);
+		return (new[0] = '\0', new);
+	}
+	if (start + len > str_len)
+		len = str_len - start;
+	new = malloc(sizeof(char) * (len + 1));
+	if (!new)
 		return (NULL);
-	ft_memcpy(str, s + start, len);
-	str[len] = '\0';
-	return (str);
+	cpy(new, s, start, len);
+	return (new);
 }
