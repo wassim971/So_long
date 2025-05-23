@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 17:00:54 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/24 08:34:52 by wassim           ###   ########.fr       */
+/*   Updated: 2025/05/19 12:42:18 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,22 @@
 
 int	ft_free_array(char **ret, int i)
 {
-	while (i > 0)
-		free(ret[--i]);
+	int	x;
+
+	x = 0;
+	while (i - 1 >= x)
+		free(ret[x++]);
+	free(ret);
+	return (0);
+}
+
+int	ft_free_array2(char **ret, int i)
+{
+	int	x;
+
+	x = 0;
+	while (i - 1 >= x && ret[x] != NULL)
+		free(ret[x++]);
 	free(ret);
 	return (0);
 }

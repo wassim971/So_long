@@ -5,13 +5,7 @@ CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g $(SYSTEM)
 
 # System Detection
-UNAME_S := $(shell uname -s)
-ifeq ($(UNAME_S), Linux)
-	MLXFLAGS =  -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz
-endif
-ifeq ($(UNAME_S), Darwin)
-	MLXFLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
-endif
+MLXFLAGS =  -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz
 
 AR			=	ar rcs
 RM			=	rm -f

@@ -6,29 +6,74 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 14:29:19 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/29 14:32:42 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/05/03 13:49:50 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
+static void	ft_destroy_player_imgs(t_map *map)
+{
+	if (map->img.player_down1)
+		mlx_destroy_image(map->mlx, map->img.player_down1);
+	if (map->img.player_down2)
+		mlx_destroy_image(map->mlx, map->img.player_down2);
+	if (map->img.player_left1)
+		mlx_destroy_image(map->mlx, map->img.player_left1);
+	if (map->img.player_left2)
+		mlx_destroy_image(map->mlx, map->img.player_left2);
+	if (map->img.player_right1)
+		mlx_destroy_image(map->mlx, map->img.player_right1);
+	if (map->img.player_right2)
+		mlx_destroy_image(map->mlx, map->img.player_right2);
+	if (map->img.player_up1)
+		mlx_destroy_image(map->mlx, map->img.player_up1);
+	if (map->img.player_up2)
+		mlx_destroy_image(map->mlx, map->img.player_up2);
+}
+
+int	ft_close_error(t_map *map, const char *msg)
+{
+	if (msg)
+		write(2, msg, strlen(msg));
+	if (map->img.collectible)
+		mlx_destroy_image(map->mlx, map->img.collectible);
+	if (map->img.empty)
+		mlx_destroy_image(map->mlx, map->img.empty);
+	if (map->img.enemy)
+		mlx_destroy_image(map->mlx, map->img.enemy);
+	if (map->img.exit)
+		mlx_destroy_image(map->mlx, map->img.exit);
+	if (map->img.wall)
+		mlx_destroy_image(map->mlx, map->img.wall);
+	ft_destroy_player_imgs(map);
+	if (map->wnd)
+		mlx_destroy_window(map->mlx, map->wnd);
+	if (map->mlx)
+		mlx_destroy_display(map->mlx);
+	ft_free_array(map->array, map->y);
+	free(map->mlx);
+	exit(EXIT_FAILURE);
+	return (1);
+}
+
 int	ft_close(t_map *map)
 {
-	mlx_destroy_image(map->mlx, map->img.collectible);
-	mlx_destroy_image(map->mlx, map->img.empty);
-	mlx_destroy_image(map->mlx, map->img.enemy);
-	mlx_destroy_image(map->mlx, map->img.exit);
-	mlx_destroy_image(map->mlx, map->img.wall);
-	mlx_destroy_image(map->mlx, map->img.player_down1);
-	mlx_destroy_image(map->mlx, map->img.player_down2);
-	mlx_destroy_image(map->mlx, map->img.player_left1);
-	mlx_destroy_image(map->mlx, map->img.player_left2);
-	mlx_destroy_image(map->mlx, map->img.player_right1);
-	mlx_destroy_image(map->mlx, map->img.player_right2);
-	mlx_destroy_image(map->mlx, map->img.player_up1);
-	mlx_destroy_image(map->mlx, map->img.player_up2);
-	mlx_destroy_window(map->mlx, map->wnd);
-	mlx_destroy_display(map->mlx);
+	if (map->img.collectible)
+		mlx_destroy_image(map->mlx, map->img.collectible);
+	if (map->img.empty)
+		mlx_destroy_image(map->mlx, map->img.empty);
+	if (map->img.enemy)
+		mlx_destroy_image(map->mlx, map->img.enemy);
+	if (map->img.exit)
+		mlx_destroy_image(map->mlx, map->img.exit);
+	if (map->img.wall)
+		mlx_destroy_image(map->mlx, map->img.wall);
+	ft_destroy_player_imgs(map);
+	if (map->wnd)
+		mlx_destroy_window(map->mlx, map->wnd);
+	if (map->mlx)
+		mlx_destroy_display(map->mlx);
 	ft_free_array(map->array, map->y);
 	free(map->mlx);
 	exit(EXIT_SUCCESS);

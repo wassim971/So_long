@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 14:47:01 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/24 08:34:39 by wassim           ###   ########.fr       */
+/*   Updated: 2025/05/19 12:16:26 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	error_size(t_map *map)
 {
 	write(2, "\033[1;31m🛑ERROR: ", 19);
 	write(2, "failed size\n\033[0m", 17);
-	ft_free_array(map->array, map->y);
-	ft_free_array(map->copy, map->y);
+	ft_free_array2(map->array, map->y);
+	ft_free_array2(map->copy, map->y);
 	exit(EXIT_FAILURE);
 }
 

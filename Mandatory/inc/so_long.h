@@ -6,7 +6,7 @@
 /*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 15:54:11 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/29 13:16:33 by wbaali           ###   ########.fr       */
+/*   Updated: 2025/05/19 12:16:51 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,12 @@ void			error_size(t_map *map);
 void			error_map_elements(t_map *map);
 void			error_empty_line(t_map *map);
 void			error_struct(void);
+int				ft_close_error(t_map *map, const char *msg);
 
 int				ft_free(char **ret, int i);
 void			ft_exit_free(t_map *map);
 int				ft_free_array(char **ret, int i);
+int				ft_free_array2(char **ret, int i);
 
 void			move_up(t_map *map);
 void			move_left(t_map *map);

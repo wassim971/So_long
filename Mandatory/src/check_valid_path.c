@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 12:41:28 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/24 08:34:27 by wassim           ###   ########.fr       */
+/*   Updated: 2025/05/22 14:20:09 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	move_on_paths(int x, int y, t_map *map)
 	else if (type == 'E')
 	{
 		map->e_check -= 1;
+		if (map->c_check != 0)
+			return ;
 		map->copy[y][x] = '1';
 	}
 	else if (type == '0' || type == 'P')
@@ -47,8 +49,8 @@ void	check_valid_path(t_map *map)
 	{
 		write(2, "\033[1;31m🛑ERROR: ", 19);
 		write(2, "NO VALID PATH\n\033[0m", 19);
-		ft_free_array(map->array, map->y);
-		ft_free_array(map->copy, map->y);
+		ft_free_array2(map->array, map->y);
+		ft_free_array2(map->copy, map->y);
 		exit(EXIT_FAILURE);
 	}
 }

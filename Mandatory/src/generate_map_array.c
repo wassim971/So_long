@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_map_array.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wassim <wassim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wbaali <wbaali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:06:37 by jcheel-n          #+#    #+#             */
-/*   Updated: 2025/04/24 08:34:55 by wassim           ###   ########.fr       */
+/*   Updated: 2025/05/19 12:37:43 by wbaali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	map_array(t_map *map)
 {
-	int		fd;
+	int	fd;
 
 	map->y = 0;
 	map->line = "";
